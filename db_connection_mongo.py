@@ -12,6 +12,7 @@
 #importing some Python libraries
 from pymongo import MongoClient
 from collections import Counter
+import pprint
 
 def connectDataBase():
 
@@ -25,7 +26,7 @@ def connectDataBase():
         
         client = MongoClient(host=DB_HOST, port=DB_PORT)
         db = client[DB_NAME]
-        
+
         return db
     
     except:
@@ -74,4 +75,9 @@ def getIndex(col):
     # Query the database to return the documents where each term occurs with their corresponding count. Output example:
     # {'baseball':'Exercise:1','summer':'Exercise:1,California:1,Arizona:1','months':'Exercise:1,Discovery:3'}
     # ...
-    print("in process")
+    pipeline = [
+        {"$unwind": {"path": "$terms"}},
+        {"$group": {"_id": "$terms.term", "titles": { "$addToSet": "$title"}}}
+    ]   
+    
+    pprint.pprint(list(col.aggregate(pipeline)))

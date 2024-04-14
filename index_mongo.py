@@ -24,10 +24,10 @@ if __name__ == '__main__':
     print("#b - Update a document")
     print("#c - Delete a document.")
     print("#d - Output the inverted index.")
-    print("#e - Quit")
+    print("#q - Quit")
 
     option = ""
-    while option != "e":
+    while option != "q":
 
           print("")
           option = input("Enter a menu choice: ")
@@ -63,7 +63,7 @@ if __name__ == '__main__':
               index = getIndex(documents)
               print(index)
 
-          elif (option == "e"):
+          elif (option == "q"):
 
                print("Leaving the application ... ")
 
