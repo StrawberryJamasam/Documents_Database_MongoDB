@@ -77,7 +77,7 @@ def getIndex(col):
     # ...
     pipeline = [
         {"$unwind": {"path": "$terms"}},
-        {"$group": {"_id": "$terms.term", "titles": { "$addToSet": "$title"}}}
+        {"$group": {"_id": "$terms.term", "in": { "$addToSet": {"Title": "$title", "Count": "$terms.term_count"}}}}
     ]   
     
     pprint.pprint(list(col.aggregate(pipeline)))
